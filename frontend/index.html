@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieVault</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>MovieVault</h1>
+        <p>Your personal movie collection</p>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2 id="form-title">Add a Movie</h2>
+
+            <form id="movie-form">
+                <input type="text" id="title" placeholder="Movie title" required>
+                <input type="text" id="isbn" placeholder="ISBN" required>
+                <input type="text" id="firstname" placeholder="Director's first name" required>
+                <input type="text" id="lastname" placeholder="Director's last name" required>
+
+                <div class="form-buttons">
+                    <button type="submit" id="submit-button">Add Movie</button>
+                    <button type="button" id="cancel-button" class="cancel hidden">Cancel</button>
+                </div>
+            </form>
+
+            <p id="message"></p>
+        </section>
+
+        <section class="movies-section">
+            <div class="section-heading">
+                <h2>My Movies</h2>
+                <button id="refresh-button" class="refresh">Refresh</button>
+            </div>
+
+            <div id="movie-list" class="movie-grid">
+                <p>Loading movies...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>MovieVault · Built with Go and JavaScript</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
