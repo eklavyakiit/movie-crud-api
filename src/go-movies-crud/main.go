@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strconv"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/handlers"
 )
 
 type Movie struct {
@@ -222,5 +223,12 @@ func main() {
 
 	fmt.Println("Starting server at port 8080")
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	corsHandler := handlers.CORS(
+    	handlers.AllowedOrigins([]string{"null", "http://127.0.0.1:5500", "http://localhost:5500"}),
+    	handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+    	handlers.AllowedHeaders([]string{"Content-Type"}),
+)
+
+log.Fatal(http.ListenAndServe(":8080", corsHandler(r)))
+
 }
