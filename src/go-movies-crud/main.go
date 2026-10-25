@@ -119,6 +119,39 @@ func deleteMovie(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "Movie not found", http.StatusNotFound)
 }
 
+// UPDATE MOVIES - delete first and then overwrite
+
+func updateMovies(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	// Get the movie ID from the URL
+	params := mux.Vars(r)
+	id := params["id"]
+
+	// Store the updated data sent by the user
+	var updatedMovie Movie
+
+	err := json.NewDecoder(r.Body).Decode(&updatedMovie)
+	if err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	// Find the existing movie and replace its data
+	for index, item := range movies {
+		if item.ID == id {
+			updatedMovie.ID = item.ID
+			movies[index] = updatedMovie
+
+			json.NewEncoder(w).Encode(updatedMovie)
+			return
+		}
+	}
+
+	// If no movie with that ID exists
+	http.Error(w, "Movie not found", http.StatusNotFound)
+}
+
 func main() {
 	r := mux.NewRouter()
 
